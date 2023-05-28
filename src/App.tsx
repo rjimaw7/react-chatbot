@@ -153,6 +153,7 @@ const App = () => {
               className="text-left"
               placeholder="Send a Message..."
               onSend={handleSend}
+              attachButton={false}
             />
           </ChatContainer>
         </MainContainer>
