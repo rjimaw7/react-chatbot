@@ -23,6 +23,8 @@ const App = () => {
   const { sendMessage } = useGptService();
   const { sendMutation } = sendMessage();
 
+  const [count, setCount] = useState(1);
+
   const mappedMessages = useMemo(() => {
     return messages.map((message, i) => <Message key={i} model={message} />);
   }, [messages]);
