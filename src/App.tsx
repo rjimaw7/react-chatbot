@@ -36,7 +36,9 @@ const App = () => {
 
       const systemMessage = {
         role: "system",
-        content: "Explain in one sentences only.",
+        content:
+          // CHANGE HERE THE WAY YOU WANT THE AI TO BEHAVE
+          "Act like you know everything. Make your answer short and sharp",
       };
 
       const apiRequestBody: any = {
@@ -69,7 +71,8 @@ const App = () => {
           // Update the messages state incrementally
           for (let i = 0; i < responseText.length; i++) {
             // Update the message character by character with a delay
-            await new Promise((resolve) => setTimeout(resolve, 50));
+            // ADJUST TYPEWRITER SPEED HERE
+            await new Promise((resolve) => setTimeout(resolve, 30));
             responseMessage.message = responseText.slice(0, i + 1); // Update the response message with the current portion of the text
 
             setMessages((prevMessages) => [
@@ -116,7 +119,7 @@ const App = () => {
         className=""
         style={{ position: "relative", height: "800px", width: "700px" }}
       >
-        <MainContainer>
+        <MainContainer responsive>
           <ChatContainer>
             <MessageList
               scrollBehavior="smooth"
@@ -124,9 +127,33 @@ const App = () => {
                 typing ? <TypingIndicator content="ChatGPT is typing" /> : null
               }
             >
-              {mappedMessages}
+              {mappedMessages.length > 0 ? (
+                mappedMessages
+              ) : (
+                <MessageList.Content
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    height: "100%",
+                    textAlign: "center",
+                    fontSize: "1.2em",
+                  }}
+                >
+                  <p>React Chatbot with Hooks.</p>
+                  <small>
+                    <a href="https://chatscope.io/" target="_blank">
+                      Chat UI kit provided by https://chatscope.io/
+                    </a>
+                  </small>
+                </MessageList.Content>
+              )}
             </MessageList>
-            <MessageInput placeholder="Type Message Here" onSend={handleSend} />
+            <MessageInput
+              className="text-left"
+              placeholder="Send a Message..."
+              onSend={handleSend}
+            />
           </ChatContainer>
         </MainContainer>
       </div>
